@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Services from '../../services/services'
 
 import './Lista.css'
+import services from '../../services/services';
 
 
 function Listar({match}) {
@@ -32,6 +33,10 @@ function Listar({match}) {
         await list()
     }
 
+    async function SoftDelete(id) {
+        await services.delete(`/user/soft/${id}`)
+        await list()
+    }
     return (
         <div>
             <form className="form-inline ">
@@ -68,6 +73,9 @@ function Listar({match}) {
                             <td>{user.dataCadastro}</td>
                             <td>{user.telefone}</td>
                             <td>
+                                <button className="btn btn-warning" onClick={ () => SoftDelete(user.id)}>
+                                    <i className="fa fa-trash-o"></i>
+                                </button>
                                 <button className="btn btn-danger" onClick={ () => remover(user.id)}>
                                     <i className="fa fa-trash-o"></i>
                                 </button>

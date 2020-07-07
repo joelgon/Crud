@@ -15,6 +15,7 @@ namespace BackEnd.Data.Mappings
             builder.Property(x => x.Documento).IsRequired().HasMaxLength(18).HasColumnType("varchar(18)");
             builder.Property(x => x.DataCadastro).IsRequired();
             builder.Property(x => x.Telefone).IsRequired().HasMaxLength(10).HasColumnType("varchar(10)");
+            builder.Property(x => x.IsDelete);
         }
     }
 }

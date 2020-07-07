@@ -16,5 +16,6 @@ namespace BackEnd.Models
         public DateTime DataCadastro { get; set; }
         [Required]
         public string Telefone { get; set; }
+        public bool IsDelete { get; set; }
     }
 }

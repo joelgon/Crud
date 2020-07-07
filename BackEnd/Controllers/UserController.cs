@@ -18,12 +18,10 @@ namespace BackEnd.Controllers
         }
 
         [Route("/user")]
-        [HttpGet]
-        [Route("/user/params")]
         [HttpGet("params")]
         public IEnumerable<User> Get(string Params)
         {
-            var user = from m in _context.User select m;
+            var user = _context.User.Where(x => x.IsDelete == false);
             if (!String.IsNullOrEmpty(Params))
             {
                 user = user.Where(
@@ -74,6 +72,16 @@ namespace BackEnd.Controllers
         {
             var user = _context.User.AsNoTracking().Where(x => x.Id == id).FirstOrDefault();
             _context.User.Remove(user);
+            _context.SaveChanges();
+        }
+        //Soft delete
+        [Route("/user/soft/{id}")]
+        [HttpDelete]
+        public void SoftDelete(int id)
+        {
+            var user = _context.User.AsNoTracking().Where(x => x.Id == id).FirstOrDefault();
+            user.IsDelete = true;
+            _context.Entry<User>(user).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }  
