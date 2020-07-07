@@ -19,10 +19,23 @@ namespace BackEnd.Controllers
 
         [Route("/user")]
         [HttpGet]
-        public IEnumerable<User> get()
-        {    
-            return _context.User.AsNoTracking().ToList(); 
+        [Route("/user/params")]
+        [HttpGet("params")]
+        public IEnumerable<User> Get(string Params)
+        {
+            var user = from m in _context.User select m;
+            if (!String.IsNullOrEmpty(Params))
+            {
+                user = user.Where(
+                    u => u.Nome.Contains(Params) ||
+                    u.Tipo.Contains(Params) ||
+                    u.Documento.Contains(Params) ||
+                    u.Telefone.Contains(Params) 
+                );
+            }
+            return user.ToList();
         }
+
 
         [Route("/user/{id}")]
         [HttpGet]
@@ -34,8 +47,7 @@ namespace BackEnd.Controllers
         [Route("/user")]
         [HttpPost]
         public User Post([FromBody]User user)
-        {
-            Console.WriteLine(user.DataCadastro);
+        {;
             _context.User.Add(user);
             _context.SaveChanges();
             return user;

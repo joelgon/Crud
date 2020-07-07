@@ -1,6 +1,6 @@
 import React from 'react'
 //import {BrowserRouter as Router, Route, Switch, } from 'react-router-dom'
-import {Router, Route, Redirect} from 'react-router'
+import {Router, Route} from 'react-router'
 import{createBrowserHistory} from 'history'
 
 import Listar from '../Listar/Listar'
@@ -10,10 +10,7 @@ const history = createBrowserHistory();
 export default props =>(
     
     <Router history={history} >
-        <Route exact path="/">
-            <Redirect to="/listar" />
-        </Route>
-        <Route path="/listar" component={Listar} />
+        <Route exact path="/" component={Listar} />
         <Route path="/cadastrar" component={Cadastrar} />
     </Router>
 )
