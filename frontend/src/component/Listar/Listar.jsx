@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Services from '../../services/services'
 
+import './Lista.css'
+
 
 function Listar({match}) {
 
